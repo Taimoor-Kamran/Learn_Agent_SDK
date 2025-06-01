@@ -32,7 +32,7 @@ run_config = RunConfig(
 
 # Step 3: Agent
 
-agent = Agent(
+agent1 = Agent(
     instructions="You are a helpful assistant that can answer questions and tasks.",
     name="Panaversity Support Agent"
 )
@@ -41,7 +41,8 @@ agent = Agent(
 
 result = Runner.run_sync(
     input="What is the capital of France?",
-    run_config=run_config
+    run_config=run_config,
+    starting_agent=agent1
 )
 
 print(result)
