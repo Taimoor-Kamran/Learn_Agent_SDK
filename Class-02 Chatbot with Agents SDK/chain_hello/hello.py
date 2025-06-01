@@ -44,6 +44,7 @@ result = Runner.run_sync(
     run_config=run_config
 )
 
+print(result)
 
 @cl.on_message
 async def main(message: cl.Message):
