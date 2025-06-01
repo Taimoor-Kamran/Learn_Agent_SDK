@@ -22,7 +22,14 @@ model = OpenAIChatCompletionsModel(
     provider = provider
 )
 
-# Step 3: Agent
+# Config: Define at Run Level
+
+run_config = RunConfig(
+    model=model,
+    
+)
+
+
 
 @cl.on_message
 async def main(message: cl.Message):
