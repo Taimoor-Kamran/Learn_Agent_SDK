@@ -26,10 +26,16 @@ model = OpenAIChatCompletionsModel(
 
 run_config = RunConfig(
     model=model,
-    
+    model_provider=provider,
+    tracing_disabled=True,
 )
 
+# Step 3: Agent
 
+agent = Agent(
+    model=model,
+    run_config=run_config
+)
 
 @cl.on_message
 async def main(message: cl.Message):
