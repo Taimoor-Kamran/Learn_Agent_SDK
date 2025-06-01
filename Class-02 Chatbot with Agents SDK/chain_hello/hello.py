@@ -1,4 +1,4 @@
-import chainlit as cl
+# import chainlit as cl
 import os
 
 from agents import Agent, RunConfig, AsyncOpenAI,OpenAIChatCompletionsModel, Runner
@@ -19,7 +19,7 @@ provider = AsyncOpenAI(
 
 model = OpenAIChatCompletionsModel(
     model="gemini-2.0-flash",
-    provider = provider
+    openai_client=provider,
 )
 
 # Config: Define at Run Level
@@ -46,6 +46,6 @@ result = Runner.run_sync(
 
 print(result)
 
-@cl.on_message
-async def main(message: cl.Message):
-    await cl.Message(content=f"Hello {message.content}").send()
+# @cl.on_message
+# async def main(message: cl.Message):
+#     await cl.Message(content=f"Hello {message.content}").send()
