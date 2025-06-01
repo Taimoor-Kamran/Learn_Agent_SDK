@@ -13,6 +13,10 @@ provider = AsyncOpenAI(
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
 )
 
+model = OpenAIChatCompletionsModel(
+    model="gemini-1.5-flash",
+    provider = provider
+)
 
 @cl.on_message
 async def main(message: cl.Message):
