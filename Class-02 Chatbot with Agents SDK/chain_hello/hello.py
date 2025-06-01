@@ -1,7 +1,7 @@
 import chainlit as cl
 import os
 
-from agents import Agent, RunConfig, AsyncOpenAI,OpenAIChatCompletionsModel
+from agents import Agent, RunConfig, AsyncOpenAI,OpenAIChatCompletionsModel, Runner
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
@@ -33,8 +33,17 @@ run_config = RunConfig(
 # Step 3: Agent
 
 agent = Agent(
-    instructions="You are a helpful assistant that can answer questions and tasks."
+    instructions="You are a helpful assistant that can answer questions and tasks.",
+    name="Panaversity Support Agent"
 )
+
+# Step 4: Run 
+
+result = Runner.run_sync(
+    input="What is the capital of France?",
+    run_config=run_config
+)
+
 
 @cl.on_message
 async def main(message: cl.Message):
