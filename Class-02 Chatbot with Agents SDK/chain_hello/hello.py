@@ -41,18 +41,20 @@ agent1 = Agent(
 async def handle_chat_start():
     cl.user_session.set("history", [])
     await cl.Message(content="Hello! I'm the Panaversity Support Agent. How may i help you today?").send()
-
 @cl.on_message
-
 async def handle_message(message: cl.Message):
-    history = cl.user_session.get("history")
+    history = cl.user_session.get("history", [])
 
-    history.append({"role": "content", "user": message.content })
+    # Corrected structure
+    history.append({"role": "user", "content": message.content})
+
     result = await Runner.run(
         agent1,
         input=history,
         run_config=run_config
-)
+    )
+
     history.append({"role": "assistant", "content": result.final_output})
     cl.user_session.set("history", history)
+
     await cl.Message(content=result.final_output).send()
