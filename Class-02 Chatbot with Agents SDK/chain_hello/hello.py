@@ -37,6 +37,11 @@ agent1 = Agent(
     name="Panaversity Support Agent"
 )
 
+cl.on_chat_start
+async def handle_chat_start():
+    cl.user_session.set("agent", agent1)
+    await cl.Message(content="Hello")
+
 @cl.on_message
 async def main(message: cl.Message):
     result = await Runner.run(
@@ -44,5 +49,4 @@ async def main(message: cl.Message):
         input=message.content,
         run_config=run_config,
 )
-
-    await cl.Message(content=f"Hello {message.content}").send()
+    await cl.Message(content=result.final_output).send()
