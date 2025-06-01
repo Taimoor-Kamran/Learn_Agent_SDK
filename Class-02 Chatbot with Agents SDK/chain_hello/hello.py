@@ -40,12 +40,12 @@ agent1 = Agent(
 # Step 4: Run 
 
 result = Runner.run_sync(
+    agent1,
     input="What is the capital of France?",
     run_config=run_config,
-    starting_agent=agent1
 )
 
-print(result)
+print(result.final_output)
 
 # @cl.on_message
 # async def main(message: cl.Message):
