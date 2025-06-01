@@ -1,4 +1,4 @@
-# import chainlit as cl
+import chainlit as cl
 import os
 
 from agents import Agent, RunConfig, AsyncOpenAI,OpenAIChatCompletionsModel, Runner
@@ -37,16 +37,12 @@ agent1 = Agent(
     name="Panaversity Support Agent"
 )
 
-# Step 4: Run 
-
-result = Runner.run_sync(
-    agent1,
-    input="What is the capital of France?",
-    run_config=run_config,
+@cl.on_message
+async def main(message: cl.Message):
+    result = await Runner.run(
+        agent1,
+        input=message.content,
+        run_config=run_config,
 )
 
-print(result.final_output)
-
-# @cl.on_message
-# async def main(message: cl.Message):
-#     await cl.Message(content=f"Hello {message.content}").send()
+    await cl.Message(content=f"Hello {message.content}").send()
