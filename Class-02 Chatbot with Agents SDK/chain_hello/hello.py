@@ -33,8 +33,7 @@ run_config = RunConfig(
 # Step 3: Agent
 
 agent = Agent(
-    model=model,
-    run_config=run_config
+    instructions="You are a helpful assistant that can answer questions and tasks."
 )
 
 @cl.on_message
