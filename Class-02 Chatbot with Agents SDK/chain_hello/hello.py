@@ -40,7 +40,7 @@ agent1 = Agent(
 cl.on_chat_start
 async def handle_chat_start():
     cl.user_session.set("history", [])
-    await cl.Message(content="Hello! I'm the Panaversity Support Agent. How may i help you today?")
+    await cl.Message(content="Hello! I'm the Panaversity Support Agent. How may i help you today?").send()
 
 @cl.on_message
 async def main(message: cl.Message):
