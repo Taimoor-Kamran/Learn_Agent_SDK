@@ -49,7 +49,7 @@ async def handle_message(message: cl.Message):
 
 # Standard Interface [{"role": "user", "content": "Hello"}, {role: ""}]
 
-    history.
+    history.append({"role": "user", "content": message.content})
     result = await Runner.run(
         agent1,
         input=history,
