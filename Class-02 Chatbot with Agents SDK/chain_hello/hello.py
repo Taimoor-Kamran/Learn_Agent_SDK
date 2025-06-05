@@ -41,6 +41,8 @@ agent1 = Agent(
 async def handle_chat_start():
     cl.user_session.set("history", [])
     await cl.Message(content="Hello! I'm the Panaversity Support Agent. How may i help you today?").send()
+
+    
 @cl.on_message
 async def handle_message(message: cl.Message):
     history = cl.user_session.get("history", [])
