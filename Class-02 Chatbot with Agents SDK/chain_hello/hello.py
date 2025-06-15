@@ -9,10 +9,8 @@ load_dotenv(find_dotenv())
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 
 provider = AsyncOpenAI(
-    AsyncOpenAI(
-        api_key=gemini_api_key,
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-    )
+    api_key=gemini_api_key,
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 )
 
 
