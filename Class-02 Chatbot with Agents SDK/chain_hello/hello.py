@@ -25,18 +25,18 @@ run_config = RunConfig(
     tracing_disabled=True
 )
 
-agent = Agent(
-    instructions="You are a helpful assistant that can answer question and "
+agent1 = Agent(
+    instructions="You are a helpful assistant that can answer question and ",
     name="Panaversity Support Agent"
 )
 
 result = Runner.run_sync(
     input="What is the Capital of Frances",
     run_config=run_config,
-    starting_agent=agent
+    starting_agent=agent1
 )
 
-print(result)
+print(result.final_output)
 
 
 @cl.on_message
