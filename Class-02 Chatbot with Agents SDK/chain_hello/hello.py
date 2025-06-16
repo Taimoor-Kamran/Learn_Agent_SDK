@@ -54,7 +54,7 @@ async def handle_message(message: cl.Message):
     await msg.send()
 
     history.append({"role" : "user", "content": message.content})
-    result = await Runner.run_streamed(
+    result = Runner.run_streamed(
         agent1,
         input=history,
         run_config=run_config
@@ -62,6 +62,7 @@ async def handle_message(message: cl.Message):
     async for event in result.stream_events():
         if event.type == 'raw_response_event' and isinstance(event.data, ResponseTextDeltaEvent):
             await msg.stream_token(event.data.delta)
+
     history.append({"role": "assistant", "content" : result.final_output})
     cl.user_session.set("history", history)
-    await cl.Message(content=result.final_output).send()
+    # await cl.Message(content=result.final_output).send()
