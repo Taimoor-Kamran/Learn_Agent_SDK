@@ -16,7 +16,7 @@ provider = AsyncOpenAI(
 
 
 model = OpenAIChatCompletionsModel(
-    model="gemini-1.5-pro",
+    model="gemini-1.5-flash",
     openai_client=provider,
 )
 
@@ -59,7 +59,7 @@ async def handle_message(message: cl.Message):
         input=history,
         run_config=run_config
     )
-    async for event in result.stream_events():
+    async for event in result.output_stream:
         if event.type == 'raw_response_event' and isinstance(event.data, ResponseTextDeltaEvent):
             await msg.stream_token(event.data.delta)
     history.append({"role": "assistant", "content" : result.final_output})
