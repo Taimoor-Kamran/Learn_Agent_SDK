@@ -19,6 +19,12 @@ model = OpenAIChatCompletionsModel(
     provider=provider,
 )
 
+run_config = RunConfig(
+    model=model,
+    model_provider=provider,
+    tracing_disabled=True
+)
+
 @cl.on_message
 async def handle_message(message: cl.Message):
     await cl.Message(content=f"Hello {message.content}").send()
