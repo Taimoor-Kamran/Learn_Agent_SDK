@@ -7,7 +7,7 @@ from openai.types.responses import ResponseTextDeltaEvent
  
 load_dotenv(find_dotenv())
 
-gemini_api_key = os.getenv("GEMINI_API_KEY")
+gemini_api_key = "AIzaSyCOXSItQTkWCdKzQBFRXepG96niL66b7cc"
 
 provider = AsyncOpenAI(
     api_key=gemini_api_key,
@@ -16,7 +16,7 @@ provider = AsyncOpenAI(
 
 
 model = OpenAIChatCompletionsModel(
-    model="gemini-1.5-flash",
+    model="gemini-1.5-pro",
     openai_client=provider,
 )
 
@@ -59,11 +59,9 @@ async def handle_message(message: cl.Message):
         input=history,
         run_config=run_config
     )
-    async for chunk in result.output_stream:
+    async for event in result.output_stream:
         if event.type == 'raw_response_event' and isinstance(event.data, ResponseTextDeltaEvent):
-            print(event.data.delta, end="", flush=True)
-            msg.update(chunk)
-            await msg.send()
+            await msg.stream_token(event.data.delta)
     history.append({"role": "assistant", "content" : result.final_output})
     cl.user_session.set("history", history)
     await cl.Message(content=result.final_output).send()
