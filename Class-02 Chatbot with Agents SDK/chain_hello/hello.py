@@ -44,6 +44,6 @@ async def handle_message(message: cl.Message):
     result = await Runner.run(
         agent1,
         input=message.content,
-        
+        run_config=run_config
     )
     await cl.Message(content=f"Hello {message.content}").send()
