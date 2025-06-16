@@ -1,4 +1,5 @@
 import chainlit as cl
+from openai.types.responses import ResponseTextDeltaEvent
 import os
 
 from agents import Agent, RunConfig, AsyncOpenAI, OpenAIChatCompletionsModel, Runner
@@ -58,6 +59,11 @@ async def handle_message(message: cl.Message):
         input=history,
         run_config=run_config
     )
+    async for chunk in result.output_stream:
+        if event.type == 'raw_response_event' and isinstance(event.data, ResponseTextDeltaEvent):
+            print(event.data.delta, end="", flush=True)
+        msg.update(chunk)
+        await msg.send()
     history.append({"role": "assistant", "content" : result.final_output})
     cl.user_session.set("history", history)
     await cl.Message(content=result.final_output).send()
