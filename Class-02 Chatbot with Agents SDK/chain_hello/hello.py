@@ -25,6 +25,11 @@ run_config = RunConfig(
     tracing_disabled=True
 )
 
+agent = Agent(
+    instructions="You are a helpful assistant that can answer question and "
+    name="Panaversity Support Agent"
+)
+
 @cl.on_message
 async def handle_message(message: cl.Message):
     await cl.Message(content=f"Hello {message.content}").send()
