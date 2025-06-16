@@ -32,7 +32,8 @@ agent = Agent(
 
 result = Runner.run_sync(
     input="What is the Capital of Frances",
-    run_config=run_config
+    run_config=run_config,
+    starting_agent=agent
 )
 
 print(result)
