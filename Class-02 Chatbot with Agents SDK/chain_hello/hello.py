@@ -15,7 +15,7 @@ provider = AsyncOpenAI(
 
 
 model = OpenAIChatCompletionsModel(
-    model="gemini-2.0-flash",
+    model="gemini-1.5-flash",
     openai_client=provider,
 )
 
@@ -48,6 +48,9 @@ async def handle_chat_start():
 @cl.on_message
 async def handle_message(message: cl.Message):
     history = cl.user_session.get("history")
+
+    msg = cl.Message(content="")
+    await msg.send()
 
     history.append({"role" : "user", "content": message.content})
     result = await Runner.run(
