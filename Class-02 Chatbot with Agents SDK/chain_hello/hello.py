@@ -16,7 +16,7 @@ provider = AsyncOpenAI(
 
 model = OpenAIChatCompletionsModel(
     model="gemini-2.0-flash",
-    provider=provider,
+    openai_client=provider,
 )
 
 run_config = RunConfig(
@@ -30,6 +30,12 @@ agent = Agent(
     name="Panaversity Support Agent"
 )
 
+result = Runner.run_sync(
+    input="What is the Capital of Frances",
+    run_config=run_config
+)
+
+print(result)
 
 
 @cl.on_message
