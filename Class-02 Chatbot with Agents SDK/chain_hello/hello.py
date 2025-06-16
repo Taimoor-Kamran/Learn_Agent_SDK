@@ -46,4 +46,4 @@ async def handle_message(message: cl.Message):
         input=message.content,
         run_config=run_config
     )
-    await cl.Message(content=f"Hello {message.content}").send()
+    await cl.Message(content=result.final_output).send()
