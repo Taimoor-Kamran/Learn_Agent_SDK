@@ -14,6 +14,11 @@ provider = AsyncOpenAI(
 )
 
 
+model = OpenAIChatCompletionsModel(
+    model="gemini-2.0-flash",
+    provider=provider,
+)
+
 @cl.on_message
 async def handle_message(message: cl.Message):
     await cl.Message(content=f"Hello {message.content}").send()
