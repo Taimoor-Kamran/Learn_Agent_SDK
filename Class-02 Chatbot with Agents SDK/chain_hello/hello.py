@@ -26,7 +26,7 @@ run_config = RunConfig(
 )
 
 agent1 = Agent(
-    instructions="You are a helpful assistant that can answer question and ",
+    instructions="You are a helpful assistant that can answer question and how may i help you",
     name="Panaversity Support Agent"
 )
 
@@ -41,4 +41,9 @@ print(result.final_output)
 
 @cl.on_message
 async def handle_message(message: cl.Message):
+    result = await Runner.run(
+        agent1,
+        input=message.content,
+        
+    )
     await cl.Message(content=f"Hello {message.content}").send()
