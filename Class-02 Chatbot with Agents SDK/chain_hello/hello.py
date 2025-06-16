@@ -1,10 +1,10 @@
-import chainlit as cl
-from openai.types.responses import ResponseTextDeltaEvent
 import os
-
-from agents import Agent, RunConfig, AsyncOpenAI, OpenAIChatCompletionsModel, Runner
+import chainlit as cl
 from dotenv import load_dotenv, find_dotenv
 
+from agents import Agent, RunConfig, AsyncOpenAI, OpenAIChatCompletionsModel, Runner
+from openai.types.responses import ResponseTextDeltaEvent
+ 
 load_dotenv(find_dotenv())
 
 gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -62,8 +62,8 @@ async def handle_message(message: cl.Message):
     async for chunk in result.output_stream:
         if event.type == 'raw_response_event' and isinstance(event.data, ResponseTextDeltaEvent):
             print(event.data.delta, end="", flush=True)
-        msg.update(chunk)
-        await msg.send()
+            msg.update(chunk)
+            await msg.send()
     history.append({"role": "assistant", "content" : result.final_output})
     cl.user_session.set("history", history)
     await cl.Message(content=result.final_output).send()
